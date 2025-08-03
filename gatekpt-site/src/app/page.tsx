@@ -46,7 +46,8 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen text-white px-6 py-12 flex flex-col items-center justify-center relative overflow-hidden bg-black">
+    <main className="min-h-screen bg-black text-white px-6 py-12 flex flex-col items-center justify-center relative overflow-hidden">
+      {/* Starry video background */}
       <video
         autoPlay
         loop
@@ -56,6 +57,7 @@ export default function Home() {
         src="/background-stars.mp4"
       />
 
+      {/* Pulsing white stars */}
       <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
         {[...Array(80)].map((_, i) => (
           <div
@@ -71,15 +73,16 @@ export default function Home() {
         ))}
       </div>
 
-      <div className="z-10 relative flex flex-col items-center">
+      {/* Moon & Title */}
+      <div className="z-10 relative flex flex-col items-center mb-8">
         <Image
           src="/spinning-moon.gif"
           alt="Spinning Moon"
-          width={300}
-          height={300}
+          width={280}
+          height={280}
           className="rounded-full shadow-2xl mb-6 animate-spin-slow"
         />
-        <h1 className="text-7xl md:text-9xl font-extrabold tracking-widest text-center font-[Cinzel] animate-pulse drop-shadow-2xl">
+        <h1 className="text-7xl md:text-8xl font-extrabold tracking-widest text-center font-[Cinzel] animate-pulse drop-shadow-2xl">
           GATEKPT
         </h1>
         <p className="text-md text-gray-400 text-center max-w-2xl mt-4">
@@ -87,9 +90,47 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="my-10 w-full flex justify-center z-10">
+      {/* Chat Assistant */}
+      <div className="my-10 w-full flex justify-center z-10 px-4">
         <Chat />
       </div>
 
+      {/* Downloads */}
       <div className="flex flex-col sm:flex-row gap-4 mb-10 z-10">
-        <Link href="/download
+        <Link href="/downloads/mac">
+          <button className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-300 transition">
+            Download for Logic (Mac)
+          </button>
+        </Link>
+        <Link href="/downloads/windows">
+          <button className="border border-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-black transition">
+            Windows Version (Coming Soon)
+          </button>
+        </Link>
+      </div>
+
+      {/* Upload + Transcription */}
+      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full max-w-md z-10">
+        <input
+          type="file"
+          name="audioFile"
+          accept="audio/*"
+          required
+          className="text-white file:bg-white file:text-black file:px-4 file:py-2 file:rounded file:cursor-pointer"
+        />
+        <button
+          type="submit"
+          className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition"
+        >
+          {loading ? 'Transcribing...' : 'Transcribe Audio'}
+        </button>
+        <pre className="text-gray-400 text-sm text-left w-full whitespace-pre-wrap">{result}</pre>
+      </form>
+
+      {/* Footer */}
+      <footer className="mt-20 text-gray-500 text-sm text-center z-10">
+        © {new Date().getFullYear()} GateKPT.ai • Built by Marcelo
+      </footer>
+    </main>
+  );
+}
