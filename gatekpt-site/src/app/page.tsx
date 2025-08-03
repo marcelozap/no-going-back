@@ -52,7 +52,7 @@ export default function Home() {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-20"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-10"
         src="/background-stars.mp4"
       />
 
@@ -60,7 +60,7 @@ export default function Home() {
         {[...Array(80)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-white rounded-full opacity-40 animate-pulse"
+            className="absolute w-1 h-1 bg-white rounded-full opacity-30 animate-pulse"
             style={{
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
@@ -75,56 +75,21 @@ export default function Home() {
         <Image
           src="/spinning-moon.gif"
           alt="Spinning Moon"
-          width={200}
-          height={200}
-          className="rounded-full shadow-xl mb-6"
+          width={300}
+          height={300}
+          className="rounded-full shadow-2xl mb-6 animate-spin-slow"
         />
-        <h1 className="text-6xl md:text-8xl font-extrabold tracking-widest text-center font-[Cinzel] animate-pulse drop-shadow-xl">
+        <h1 className="text-7xl md:text-9xl font-extrabold tracking-widest text-center font-[Cinzel] animate-pulse drop-shadow-2xl">
           GATEKPT
         </h1>
+        <p className="text-md text-gray-400 text-center max-w-2xl mt-4">
+          Born from darkness, forged in sound — your AI mastering assistant in the void.
+        </p>
       </div>
-
-      <p className="text-lg text-gray-400 text-center max-w-xl mb-6 mt-6 z-10">
-        Use an AI chat assistant to improve your mix, master faster, and maximize your music.
-      </p>
-
-      <div className="flex flex-col sm:flex-row gap-4 mb-10 z-10">
-        <Link href="/downloads/mac">
-          <button className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-300">
-            Download for Logic (Mac)
-          </button>
-        </Link>
-        <Link href="/downloads/windows">
-          <button className="border border-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-black">
-            Windows Version (Coming Soon)
-          </button>
-        </Link>
-      </div>
-
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full max-w-md z-10">
-        <input
-          type="file"
-          name="audioFile"
-          accept="audio/*"
-          required
-          className="text-white"
-        />
-        <button
-          type="submit"
-          className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200"
-        >
-          {loading ? 'Transcribing...' : 'Transcribe Audio'}
-        </button>
-        <pre className="text-gray-400 text-sm text-left w-full whitespace-pre-wrap">{result}</pre>
-      </form>
 
       <div className="my-10 w-full flex justify-center z-10">
         <Chat />
       </div>
 
-      <footer className="mt-20 text-gray-500 text-sm text-center z-10">
-        © {new Date().getFullYear()} GateKPT.ai • Built by Marcelo
-      </footer>
-    </main>
-  );
-}
+      <div className="flex flex-col sm:flex-row gap-4 mb-10 z-10">
+        <Link href="/download
