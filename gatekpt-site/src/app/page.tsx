@@ -8,15 +8,6 @@ export default function Home() {
   const [result, setResult] = useState('Upload a file to transcribe');
   const [loading, setLoading] = useState(false);
 
-  const orbStyles = useMemo(() => (
-    [...Array(8)].map(() => ({
-      top: `${Math.random() * 100}%`,
-      left: `${Math.random() * 100}%`,
-      animationDuration: `${4 + Math.random() * 4}s`,
-      animationDelay: `${Math.random() * 5}s`,
-    }))
-  ), []);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -45,43 +36,20 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white px-6 py-12 flex flex-col items-center justify-center relative overflow-hidden">
-      {/* Starry background video */}
+    <main className="relative min-h-screen bg-black text-white px-6 py-12 flex flex-col items-center justify-center overflow-hidden">
+      
+      {/* 🌍 Earth Background Video */}
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-10"
+        className="absolute inset-0 w-full h-full object-cover z-0"
         src="/spinning-earth.mp4"
       />
 
-      {/* Twinkling stars */}
-      <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
-        {[...Array(80)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full opacity-30 animate-pulse"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDuration: `${2 + Math.random() * 3}s`,
-              animationDelay: `${Math.random() * 3}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Logo and Title */}
-      <div className="z-10 relative flex flex-col items-center mb-8">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-[280px] h-[280px] rounded-full shadow-2xl mb-6 object-cover"
-          src="/spinning-earth.mp4"
-        />
+      {/* 🌌 Content Over Video */}
+      <div className="z-10 relative flex flex-col items-center mb-12">
         <h1 className="text-7xl md:text-8xl font-extrabold tracking-widest text-center font-[Cinzel] animate-pulse drop-shadow-2xl">
           GATEKPT
         </h1>
@@ -90,12 +58,12 @@ export default function Home() {
         </p>
       </div>
 
-      {/* Chat Assistant */}
+      {/* 🤖 Chat Assistant */}
       <div className="my-10 w-full flex justify-center z-10 px-4">
         <Chat />
       </div>
 
-      {/* Downloads */}
+      {/* ⬇️ Downloads */}
       <div className="flex flex-col sm:flex-row gap-4 mb-10 z-10">
         <Link href="/downloads/mac">
           <button className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-300 transition">
@@ -109,7 +77,7 @@ export default function Home() {
         </Link>
       </div>
 
-      {/* Upload form */}
+      {/* 🔊 Audio Upload Form */}
       <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full max-w-md z-10">
         <input
           type="file"
@@ -127,7 +95,7 @@ export default function Home() {
         <pre className="text-gray-400 text-sm text-left w-full whitespace-pre-wrap">{result}</pre>
       </form>
 
-      {/* Footer */}
+      {/* 🧾 Footer */}
       <footer className="mt-20 text-gray-500 text-sm text-center z-10">
         © {new Date().getFullYear()} GateKPT.ai • Built by Marcelo
       </footer>
