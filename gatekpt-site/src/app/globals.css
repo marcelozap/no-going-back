@@ -5,6 +5,7 @@
 :root {
   --background: #000000;
   --foreground: #ffffff;
+  --font-primary: 'Cinzel', serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,8 +18,10 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: 'Cinzel', serif;
+  font-family: var(--font-primary);
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .animate-spin-slow {

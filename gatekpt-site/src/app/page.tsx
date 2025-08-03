@@ -3,7 +3,6 @@
 import { useState, useMemo } from 'react';
 import Chat from './components/chat';
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function Home() {
   const [result, setResult] = useState('Upload a file to transcribe');
@@ -47,17 +46,17 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-black text-white px-6 py-12 flex flex-col items-center justify-center relative overflow-hidden">
-      {/* Starry video background */}
+      {/* Starry background video */}
       <video
         autoPlay
         loop
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-10"
-        src="/background-stars.mp4"
+        src="/spinning-earth.mp4"
       />
 
-      {/* Pulsing white stars */}
+      {/* Twinkling stars */}
       <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
         {[...Array(80)].map((_, i) => (
           <div
@@ -73,14 +72,15 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Moon & Title */}
+      {/* Logo and Title */}
       <div className="z-10 relative flex flex-col items-center mb-8">
-        <Image
-          src="/spinning-moon.gif"
-          alt="Spinning Moon"
-          width={280}
-          height={280}
-          className="rounded-full shadow-2xl mb-6 animate-spin-slow"
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-[280px] h-[280px] rounded-full shadow-2xl mb-6 object-cover"
+          src="/spinning-earth.mp4"
         />
         <h1 className="text-7xl md:text-8xl font-extrabold tracking-widest text-center font-[Cinzel] animate-pulse drop-shadow-2xl">
           GATEKPT
@@ -109,7 +109,7 @@ export default function Home() {
         </Link>
       </div>
 
-      {/* Upload + Transcription */}
+      {/* Upload form */}
       <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full max-w-md z-10">
         <input
           type="file"
