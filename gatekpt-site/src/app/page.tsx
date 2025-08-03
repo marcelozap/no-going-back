@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import Chat from './components/chat';
+import Chat from './components/Chat';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   const [result, setResult] = useState('Upload a file to transcribe');
@@ -45,71 +46,83 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-screen bg-black text-white overflow-hidden">
+    <main className="min-h-screen text-white px-6 py-12 flex flex-col items-center justify-center relative overflow-hidden bg-black">
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-20 z-0"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-20"
         src="/background-stars.mp4"
       />
 
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 items-center justify-center min-h-screen px-6 py-20 gap-12">
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-          <h1 className="text-5xl font-bold mb-4 animate-pulse">GateKPT</h1>
-          <p className="text-lg text-gray-300 mb-6 max-w-md">
-            Use an AI chat assistant to improve your mix, master faster, and maximize your music.
-          </p>
-
-          <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full max-w-sm">
-            <input
-              type="file"
-              name="audioFile"
-              accept="audio/*"
-              required
-              className="file-input text-white border border-gray-500 p-2 rounded"
-            />
-            <button
-              type="submit"
-              className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200"
-            >
-              {loading ? 'Transcribing...' : 'Transcribe Audio'}
-            </button>
-            <pre className="text-gray-400 text-sm whitespace-pre-wrap mt-2">{result}</pre>
-          </form>
-
-          <div className="flex gap-4 mt-6">
-            <Link href="/downloads/mac">
-              <button className="bg-white text-black px-6 py-2 rounded hover:bg-gray-300">
-                Download for Logic (Mac)
-              </button>
-            </Link>
-            <Link href="/downloads/windows">
-              <button className="border border-white px-6 py-2 rounded hover:bg-white hover:text-black">
-                Windows Version (Coming Soon)
-              </button>
-            </Link>
-          </div>
-        </div>
-
-        <div className="flex justify-center w-full">
-          <Chat />
-        </div>
-      </div>
-
-      {/* Floating Orbs */}
       <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
-        {orbStyles.map((style, i) => (
+        {[...Array(80)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-6 h-6 bg-white rounded-full opacity-10 blur-xl animate-float"
-            style={style}
+            className="absolute w-1 h-1 bg-white rounded-full opacity-40 animate-pulse"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animationDuration: `${2 + Math.random() * 3}s`,
+              animationDelay: `${Math.random() * 3}s`,
+            }}
           />
         ))}
       </div>
 
-      <footer className="absolute bottom-6 w-full text-center text-gray-500 text-sm z-10">
+      <div className="z-10 relative flex flex-col items-center">
+        <Image
+          src="/spinning-moon.gif"
+          alt="Spinning Moon"
+          width={200}
+          height={200}
+          className="rounded-full shadow-xl mb-6"
+        />
+        <h1 className="text-6xl md:text-8xl font-extrabold tracking-widest text-center font-[Cinzel] animate-pulse drop-shadow-xl">
+          GATEKPT
+        </h1>
+      </div>
+
+      <p className="text-lg text-gray-400 text-center max-w-xl mb-6 mt-6 z-10">
+        Use an AI chat assistant to improve your mix, master faster, and maximize your music.
+      </p>
+
+      <div className="flex flex-col sm:flex-row gap-4 mb-10 z-10">
+        <Link href="/downloads/mac">
+          <button className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-300">
+            Download for Logic (Mac)
+          </button>
+        </Link>
+        <Link href="/downloads/windows">
+          <button className="border border-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-black">
+            Windows Version (Coming Soon)
+          </button>
+        </Link>
+      </div>
+
+      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full max-w-md z-10">
+        <input
+          type="file"
+          name="audioFile"
+          accept="audio/*"
+          required
+          className="text-white"
+        />
+        <button
+          type="submit"
+          className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200"
+        >
+          {loading ? 'Transcribing...' : 'Transcribe Audio'}
+        </button>
+        <pre className="text-gray-400 text-sm text-left w-full whitespace-pre-wrap">{result}</pre>
+      </form>
+
+      <div className="my-10 w-full flex justify-center z-10">
+        <Chat />
+      </div>
+
+      <footer className="mt-20 text-gray-500 text-sm text-center z-10">
         © {new Date().getFullYear()} GateKPT.ai • Built by Marcelo
       </footer>
     </main>
