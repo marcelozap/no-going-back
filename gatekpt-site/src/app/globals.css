@@ -2,71 +2,152 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* Root theme */
+/*─────────────────────────────────────────────────────────────────────────────
+  1. CSS Variables: centralized durations, colors, fonts
+─────────────────────────────────────────────────────────────────────────────*/
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
-  --glow: 0 0 20px rgba(255, 255, 255, 0.8);
-  --shine: linear-gradient(90deg, #ffffff, #999999, #ffffff);
+  /* Colors */
+  --color-bg: #000000;
+  --color-fg: #ffffff;
+  --color-highlight: #D4AF37;
+
+  /* Fonts */
+  --font-primary: 'Cinzel', serif;
+  --font-chat: 'Inter', sans-serif;
+
+  /* Animation durations */
+  --dur-fast: 0.5s;
+  --dur-med: 1s;
+  --dur-slow: 3s;
+
+  /* Opacity steps */
+  --twinkle-min: 0.2;
+  --twinkle-max: 0.6;
 }
 
+/*─────────────────────────────────────────────────────────────────────────────
+  2. Base Styles
+─────────────────────────────────────────────────────────────────────────────*/
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: 'Cinzel', serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-primary);
   overflow-x: hidden;
+  overscroll-behavior: none;
 }
 
-/* Slow moon or earth spin */
-.animate-spin-slow {
-  animation: spin 20s linear infinite;
+/*─────────────────────────────────────────────────────────────────────────────
+  3. Reduced-Motion Preference
+─────────────────────────────────────────────────────────────────────────────*/
+@media (prefers-reduced-motion: reduce) {
+  .animate-glow,
+  .animate-fade-in-up,
+  .animate-spin-slow,
+  .animate-twinkle,
+  .particle {
+    animation: none !important;
+  }
 }
 
+/*─────────────────────────────────────────────────────────────────────────────
+  4. Animations (only transform & opacity)
+─────────────────────────────────────────────────────────────────────────────*/
+/* 4.1 Spin (for moon/earth imagery) */
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  will-change: transform;
+  animation: spin var(--dur-slow) linear infinite;
 }
 
-/* Glowing effect for the GATEKPT title */
-.animate-glow {
-  animation: glow 3s ease-in-out infinite alternate;
+/* 4.2 Twinkle (star dots) */
+@keyframes twinkle {
+  0%,100% { opacity: var(--twinkle-min); }
+  50%     { opacity: var(--twinkle-max); }
+}
+.animate-twinkle {
+  will-change: opacity;
+  animation: twinkle var(--dur-slow) ease-in-out infinite;
 }
 
+/* 4.3 Glow (title & highlights) */
 @keyframes glow {
-  from {
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6), 0 0 16px rgba(255, 255, 255, 0.4);
+  0%,100% {
+    text-shadow:
+      0 0 8px rgba(255,255,255,0.6),
+      0 0 16px rgba(255,255,255,0.4);
   }
-  to {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8);
+  50% {
+    text-shadow:
+      0 0 20px rgba(255,255,255,1),
+      0 0 30px rgba(255,255,255,0.8);
   }
 }
+.animate-glow {
+  will-change: text-shadow, opacity;
+  animation: glow var(--dur-med) ease-in-out infinite alternate;
+}
 
-/* Fade in for components */
-.animate-fade-in {
-  animation: fadeIn 1.6s ease forwards;
+/* 4.4 Fade-in-up (panels, headlines) */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  will-change: opacity, transform;
+  animation: fade-in-up var(--dur-med) ease-out forwards;
   opacity: 0;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* 4.5 Drift (couture dust particles) */
+@keyframes drift {
+  0%   { transform: translateY(10vh) scale(0.5); opacity: 0; }
+  50%  { opacity: 0.3; }
+  100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+.particle {
+  position: absolute;
+  background: rgba(255,255,255,0.2);
+  width: 1px;
+  height: 20px;
+  will-change: transform, opacity;
+  animation: drift 8s ease-in-out infinite;
 }
 
-/* Custom scrollbars (optional for chat) */
+/*─────────────────────────────────────────────────────────────────────────────
+  5. Scrollbar (Chat) – Firefox & WebKit
+─────────────────────────────────────────────────────────────────────────────*/
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 3px;
+}
+
+/*─────────────────────────────────────────────────────────────────────────────
+  6. Utility Classes & Accessibility Helpers
+─────────────────────────────────────────────────────────────────────────────*/
+/* Skip-link helpers */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap;
+}
+.focus\:not-sr-only:focus {
+  position: static; width: auto; height: auto;
+  margin: 0; overflow: visible; clip: auto;
+  white-space: normal;
 }
