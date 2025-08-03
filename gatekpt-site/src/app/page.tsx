@@ -1,12 +1,21 @@
 'use client';
 
-import { useState } from 'react';
-import Chat from './components/Chat';
+import { useState, useMemo } from 'react';
+import Chat from './components/chat';
 import Link from 'next/link';
 
 export default function Home() {
   const [result, setResult] = useState('Upload a file to transcribe');
   const [loading, setLoading] = useState(false);
+
+  const orbStyles = useMemo(() => (
+    [...Array(8)].map(() => ({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      animationDuration: `${4 + Math.random() * 4}s`,
+      animationDelay: `${Math.random() * 5}s`,
+    }))
+  ), []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -93,16 +102,11 @@ export default function Home() {
 
       {/* Option B: Floating Orbs */}
       <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+        {orbStyles.map((style, i) => (
           <div
             key={i}
             className="absolute w-6 h-6 bg-white rounded-full opacity-10 blur-xl animate-float"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDuration: `${4 + Math.random() * 4}s`,
-              animationDelay: `${Math.random() * 5}s`
-            }}
+            style={style}
           />
         ))}
       </div>
