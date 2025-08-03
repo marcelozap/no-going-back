@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import Chat from './components/Chat';
+import Chat from './components/chat';
 import Link from 'next/link';
 import Image from 'next/image';
 
