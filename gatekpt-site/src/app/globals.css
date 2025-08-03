@@ -1,26 +1,47 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Starfield background */
+.stars-container {
+  position: relative;
+  overflow: hidden;
+}
+.stars-container::before,
+.stars-container::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: transparent;
+  animation: moveStars 60s linear infinite;
+}
+.stars-container::before {
+  background-image: radial-gradient(#fff 1px, transparent 1px), radial-gradient(#ccc 2px, transparent 2px);
+  background-size: 50px 50px, 100px 100px;
+  opacity: 0.5;
+}
+.stars-container::after {
+  background-image: radial-gradient(#fff 1px, transparent 1px), radial-gradient(#ccc 2px, transparent 2px);
+  background-size: 100px 100px, 200px 200px;
+  opacity: 0.3;
+}
+@keyframes moveStars {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50%, 50%); }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Center moon logo text pulsing */
+.moon-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5rem;
+  font-family: var(--font-geist-mono);
+  color: white;
+  animation: pulse 3s ease-in-out infinite;
+  text-shadow: 0 0 20px rgba(255,255,255,0.7);
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.05); }
 }

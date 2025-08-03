@@ -1,58 +1,47 @@
-import { IncomingForm } from 'formidable';
-import fs from 'fs';
-import FormData from 'form-data';
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
-  return new Promise((resolve, reject) => {
-    const form = new IncomingForm();
+  try {
+    const { message } = await req.json();
 
-    form.parse(req, async (err, fields, files) => {
-      if (err) {
-        console.error('Error parsing form:', err);
-        return resolve(
-          new Response(JSON.stringify({ error: 'File parsing failed' }), {
-            status: 500,
-          })
-        );
-      }
+    if (!message || typeof message !== "string") {
+      return NextResponse.json({ reply: "Please provide a valid message." }, { status: 400 });
+    }
 
-      try {
-        const file = files.file;
-        const fileStream = fs.createReadStream(file.filepath);
+    const prompt = `
+You are GateKPT, an AI mastering and mixing assistant for music producers. Your voice is helpful, vibey, and slightly artistic.
 
-        const formData = new FormData();
-        formData.append('file', fileStream);
-        formData.append('model', 'whisper-1');
+Respond clearly and musically to the following user input. If they mention a song, plugin, or instrument, suggest actionable tips — such as EQ moves, stereo width ideas, compression ratios, or general creative suggestions.
 
-        const openaiRes = await fetch('https://api.openai.com/v1/audio/transcriptions', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-          },
-          body: formData,
-        });
+Speak in short, helpful paragraphs. Incorporate energy, frequency, or vibe-based language when relevant. Example tone:
 
-        const result = await openaiRes.json();
+“Let’s open up that top end with a subtle 12kHz shelf.”
+“Try gluing the drums with a 4:1 compressor and a slow attack.”
+“Give your mix more space with a stereo widener on the pads.”
 
-        return resolve(
-          new Response(JSON.stringify({ transcription: result.text }), {
-            status: 200,
-          })
-        );
-      } catch (err) {
-        console.error('Error calling OpenAI:', err);
-        return resolve(
-          new Response(JSON.stringify({ error: 'Transcription failed' }), {
-            status: 500,
-          })
-        );
-      }
+User: ${message}
+`;
+
+    const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo", // or "gpt-4"
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0.8,
+        max_tokens: 300,
+      }),
     });
-  });
+
+    const data = await openaiRes.json();
+    const reply = data.choices?.[0]?.message?.content || "Hmm, I'm not sure how to respond to that.";
+
+    return NextResponse.json({ reply });
+  } catch (error) {
+    console.error("Assistant error:", error);
+    return NextResponse.json({ reply: "Sorry, something went wrong." }, { status: 500 });
+  }
 }
