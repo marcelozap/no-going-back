@@ -2,28 +2,22 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+/* Root theme */
 :root {
   --background: #000000;
   --foreground: #ffffff;
-  --font-primary: 'Cinzel', serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #ffffff;
-  }
+  --glow: 0 0 20px rgba(255, 255, 255, 0.8);
+  --shine: linear-gradient(90deg, #ffffff, #999999, #ffffff);
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-primary);
+  font-family: 'Cinzel', serif;
   overflow-x: hidden;
-  margin: 0;
-  padding: 0;
 }
 
+/* Slow moon or earth spin */
 .animate-spin-slow {
   animation: spin 20s linear infinite;
 }
@@ -36,10 +30,43 @@ body {
     transform: rotate(360deg);
   }
 }
+
+/* Glowing effect for the GATEKPT title */
+.animate-glow {
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6), 0 0 16px rgba(255, 255, 255, 0.4);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* Fade in for components */
+.animate-fade-in {
+  animation: fadeIn 1.6s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom scrollbars (optional for chat) */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
 }

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: "GateKPT",
     images: [
       {
-        url: "/og-image.png", // Update with real OG image
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "GateKPT Logo and Space Background",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: "GateKPT",
     description: "AI mastering and mix companion from the void.",
     images: ["/og-image.png"],
-    creator: "@yourhandle", // Optional: update with your X handle
+    creator: "@yourhandle", // Optional: Add your Twitter handle
   },
   icons: {
     icon: "/favicon.ico",
@@ -46,8 +46,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="bg-black text-white scroll-smooth">
-      <body className={`${cinzel.variable} antialiased overflow-x-hidden`}>
+    <html lang="en" className="bg-black text-white">
+      <body className={`${cinzel.variable} antialiased`}>
         {children}
       </body>
     </html>

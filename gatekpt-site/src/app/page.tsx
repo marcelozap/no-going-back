@@ -46,18 +46,18 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-4 py-12 relative overflow-hidden">
-      {/* Fullscreen Spinning Earth Background */}
+    <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center relative overflow-hidden">
+      {/* Earth video background */}
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-10"
+        className="absolute inset-0 w-full h-full object-cover z-0"
         src="/spinning-earth.mp4"
       />
 
-      {/* Animated Star Layer */}
+      {/* Bright stars floating */}
       <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
         {[...Array(80)].map((_, i) => (
           <div
@@ -73,19 +73,12 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Central Branding */}
-      <div className="z-10 relative flex flex-col items-center mb-10">
-        <Image
-          src="/spinning-moon.gif"
-          alt="Spinning Moon"
-          width={280}
-          height={280}
-          className="rounded-full shadow-2xl mb-6 animate-spin-slow"
-        />
-        <h1 className="text-7xl md:text-8xl font-extrabold tracking-widest text-center font-[Cinzel] animate-pulse drop-shadow-2xl">
+      {/* Title and tagline */}
+      <div className="z-10 relative flex flex-col items-center mb-12">
+        <h1 className="text-8xl md:text-9xl font-extrabold tracking-widest text-center font-[Cinzel] animate-glow text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.9)]">
           GATEKPT
         </h1>
-        <p className="text-md text-gray-400 text-center max-w-2xl mt-4">
+        <p className="text-lg text-gray-300 text-center max-w-2xl mt-4 animate-fade-in">
           Born from darkness, forged in sound — your AI mastering assistant in the void.
         </p>
       </div>
@@ -95,22 +88,22 @@ export default function Home() {
         <Chat />
       </div>
 
-      {/* Downloads */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-10 z-10">
+      {/* Download Buttons */}
+      <div className="flex flex-col sm:flex-row gap-4 mb-10 z-10 animate-fade-in">
         <Link href="/downloads/mac">
-          <button className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-300 transition">
+          <button className="bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-300 shadow-lg">
             Download for Logic (Mac)
           </button>
         </Link>
         <Link href="/downloads/windows">
-          <button className="border border-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-black transition">
+          <button className="border border-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-black shadow-lg">
             Windows Version (Coming Soon)
           </button>
         </Link>
       </div>
 
-      {/* Upload Form */}
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full max-w-md z-10">
+      {/* Upload & Transcription */}
+      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full max-w-md z-10 animate-fade-in">
         <input
           type="file"
           name="audioFile"
@@ -120,7 +113,7 @@ export default function Home() {
         />
         <button
           type="submit"
-          className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition"
+          className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200"
         >
           {loading ? 'Transcribing...' : 'Transcribe Audio'}
         </button>
@@ -128,7 +121,7 @@ export default function Home() {
       </form>
 
       {/* Footer */}
-      <footer className="mt-20 text-gray-500 text-sm text-center z-10">
+      <footer className="mt-20 text-gray-500 text-sm text-center z-10 animate-fade-in">
         © {new Date().getFullYear()} GateKPT.ai • Built by Marcelo
       </footer>
     </main>

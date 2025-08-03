@@ -1,14 +1,16 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function Chat() {
   const [messages, setMessages] = useState([
-    { sender: 'bot', text: 'Hey! I’m GateKPT. Upload a track or ask how to shape your mix.' },
+    {
+      sender: 'bot',
+      text: 'Hey! I’m GateKPT. Upload a track or ask how to shape your mix.',
+    },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const bottomRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,23 +27,18 @@ export default function Chat() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: input }),
       });
-
       const data = await res.json();
-      setMessages((prev) => [...prev, { sender: 'bot', text: data.reply || 'No reply received.' }]);
+      setMessages((prev) => [...prev, { sender: 'bot', text: data.reply }]);
     } catch (err) {
-      setMessages((prev) => [...prev, { sender: 'bot', text: 'Error contacting assistant.' }]);
+      setMessages((prev) => [...prev, { sender: 'bot', text: 'Something went wrong.' }]);
     }
 
     setLoading(false);
   };
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
   return (
-    <div className="w-full max-w-2xl bg-white/10 backdrop-blur-md text-white rounded-xl p-6 shadow-lg border border-white/20 z-20 relative animate-fade-in-up">
-      <div className="h-72 overflow-y-auto mb-4 space-y-2 custom-scrollbar pr-2">
+    <div className="w-full max-w-2xl bg-white/10 backdrop-blur-md text-white rounded-xl p-6 shadow-2xl border border-white/20 z-20 relative animate-fade-in-up">
+      <div className="h-72 overflow-y-auto mb-4 space-y-2 custom-scrollbar">
         {messages.map((msg, i) => (
           <div
             key={i}
@@ -55,22 +52,21 @@ export default function Chat() {
           </div>
         ))}
         {loading && (
-          <div className="text-sm text-gray-300 italic">GateKPT is thinking...</div>
+          <div className="text-sm text-gray-400 italic animate-pulse">Thinking...</div>
         )}
-        <div ref={bottomRef} />
       </div>
 
-      <form onSubmit={handleSubmit} className="flex items-center gap-2">
+      <form onSubmit={handleSubmit} className="flex items-center gap-4">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your question..."
-          className="flex-grow px-4 py-2 rounded bg-black border border-white/20 text-white placeholder-gray-400 focus:outline-none"
+          className="flex-1 bg-black/50 border border-white/20 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white"
+          placeholder="Ask GateKPT..."
         />
         <button
           type="submit"
-          className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition"
+          className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition font-semibold"
         >
           Send
         </button>
