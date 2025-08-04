@@ -31,7 +31,7 @@ export default function Home() {
 
   return (
     <>
-      {/* Skip link for accessibility */}
+      {/* Skip link */}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only fixed top-4 left-4 z-50 px-4 py-2 bg-white text-black rounded"
@@ -39,81 +39,75 @@ export default function Home() {
         Skip to main content
       </a>
 
-      <main
-        id="main-content"
-        className="relative z-10 flex flex-col items-center justify-center h-full w-full px-8 py-16"
+      {/* Hero */}
+      <h1
+        className="mb-4 text-[5rem] md:text-[6rem] font-[Cinzel] font-extrabold uppercase tracking-widest
+                   text-white animate-glow-couture"
       >
-        {/* Hero + Chat */}
-        <div className="flex flex-col items-center space-y-8">
-          <h1
-            className="text-[5rem] md:text-[6rem] font-[Cinzel] font-extrabold uppercase tracking-widest text-white
-                       after:absolute after:inset-0 after:bg-gradient-to-r after:from-white after:via-[#D4AF37] after:to-white
-                       after:bg-clip-text after:text-transparent animate-glow-couture"
-          >
-            GATEKPT
-          </h1>
-          <div className="w-full max-w-2xl mx-auto">
-            <Chat />
-          </div>
-        </div>
+        GATEKPT
+      </h1>
 
-        {/* Tagline */}
-        <p className="mt-12 mb-8 max-w-xl text-center text-gray-300 font-light animate-fade-in-up">
-          Born from darkness, forged in sound — your AI mastering companion in couture-cosmic style.
-        </p>
+      {/* Chat directly under hero, full width */}
+      <div className="w-full mb-12">
+        <Chat />
+      </div>
 
-        {/* Download CTAs */}
-        <div className="flex flex-col sm:flex-row gap-8 mb-16">
-          <Link href="/downloads/mac">
-            <button
-              className="px-8 py-3 rounded-full bg-white text-black font-semibold uppercase
-                         shadow-[0_0_15px_rgba(212,175,55,0.7)] hover:shadow-[0_0_30px_rgba(212,175,55,1)] transition"
-            >
-              Download for Logic (Mac)
-            </button>
-          </Link>
-          <Link href="/downloads/windows">
-            <button
-              className="px-8 py-3 rounded-full border border-white text-white font-semibold uppercase
-                         hover:bg-white hover:text-black hover:shadow-[0_0_30px_rgba(212,175,55,1)] transition"
-            >
-              Windows Version (Soon)
-            </button>
-          </Link>
-        </div>
+      {/* Tagline */}
+      <p className="mb-12 max-w-xl text-center text-gray-300 font-light animate-fade-in-up">
+        Born from darkness, forged in sound — your AI mastering companion in couture-cosmic style.
+      </p>
 
-        {/* Upload Form */}
-        <form
-          id="transcribe-form"
-          onSubmit={handleSubmit}
-          className="flex flex-col items-center gap-4 w-full max-w-md mb-12"
-        >
-          <input
-            id="audioFile"
-            type="file"
-            name="audioFile"
-            accept="audio/*"
-            required
-            className="w-full bg-black/30 text-white file:bg-white file:text-black file:px-4 file:py-2
-                       file:rounded-lg file:cursor-pointer border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 transition"
-          />
-          <button
-            type="submit"
-            disabled={loading}
-            className="px-6 py-3 rounded-full bg-white text-black font-semibold uppercase transition disabled:opacity-50"
-          >
-            {loading ? 'Transcribing…' : 'Transcribe Audio'}
+      {/* Download Buttons */}
+      <div className="flex flex-col sm:flex-row gap-8 w-full justify-center mb-16">
+        <Link href="/downloads/mac">
+          <button className="px-8 py-3 rounded-full bg-white text-black font-semibold uppercase
+                             shadow-[0_0_15px_rgba(212,175,55,0.7)] hover:shadow-[0_0_30px_rgba(212,175,55,1)] transition">
+            Download for Logic (Mac)
           </button>
-          <pre className="w-full text-left text-gray-300 text-sm whitespace-pre-wrap mt-2 select-text">
-            {result}
-          </pre>
-        </form>
+        </Link>
+        <Link href="/downloads/windows">
+          <button className="px-8 py-3 rounded-full border border-white text-white font-semibold uppercase
+                             hover:bg-white hover:text-black hover:shadow-[0_0_30px_rgba(212,175,55,1)] transition">
+            Windows Version (Soon)
+          </button>
+        </Link>
+      </div>
 
-        {/* Footer */}
-        <footer className="text-center text-gray-500 text-sm">
-          © {new Date().getFullYear()} GateKPT.ai • Built by Marcelo
-        </footer>
-      </main>
+      {/* Upload Form */}
+      <form
+        id="transcribe-form"
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center gap-4 w-full max-w-md mb-12"
+      >
+        <label htmlFor="audioFile" className="sr-only">
+          Upload audio file
+        </label>
+        <input
+          id="audioFile"
+          type="file"
+          name="audioFile"
+          accept="audio/*"
+          required
+          className="w-full bg-black/30 text-white file:bg-white file:text-black file:px-4 file:py-2
+                     file:rounded-lg file:cursor-pointer border border-white/20 rounded-lg
+                     focus:outline-none focus:ring-2 focus:ring-white/50 transition"
+        />
+        <button
+          type="submit"
+          disabled={loading}
+          className="px-6 py-3 rounded-full bg-white text-black font-semibold uppercase transition disabled:opacity-50"
+        >
+          {loading ? 'Transcribing…' : 'Transcribe Audio'}
+        </button>
+        <pre className="w-full text-left text-gray-300 text-sm whitespace-pre-wrap mt-2 select-text">
+          {result}
+        </pre>
+      </form>
+
+      {/* Footer */}
+      <footer className="text-center text-gray-500 text-sm">
+        © {new Date().getFullYear()} GateKPT.ai • Built by Marcelo
+      </footer>
     </>
   );
 }

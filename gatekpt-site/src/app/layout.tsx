@@ -10,6 +10,7 @@ const cinzel = Cinzel({
   variable: "--font-cinzel",
   display: "swap",
 });
+
 export const metadata: Metadata = {
   title: "GateKPT",
   description: "AI mastering and mix companion from the void.",
@@ -33,29 +34,29 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // generate 100 stars with random positions & animation delays
-  const stars = Array.from({ length: 100 }).map((_, i) => ({
-    id: i,
-    top: Math.random() * 100 + '%',
-    left: Math.random() * 100 + '%',
-    delay: (Math.random() * 3).toFixed(2) + 's',
+  // generate 80 stars with random positions & delays
+  const stars = Array.from({ length: 80 }).map((_, i) => ({
+    key: i,
+    top: `${Math.random() * 100}%`,
+    left: `${Math.random() * 100}%`,
+    delay: `${(Math.random() * 3).toFixed(2)}s`,
   }));
 
   return (
-    <html lang="en" className="h-full bg-black text-white">
-      <body className={`${cinzel.variable} antialiased h-full overflow-hidden relative`}>
-        {/* Star field */}
+    <html lang="en" className="h-screen bg-black text-white">
+      <body className={`${cinzel.variable} antialiased h-full w-full overflow-hidden relative`}>
+        {/* Pulsing star field */}
         <div className="absolute inset-0 pointer-events-none">
-          {stars.map(({ id, top, left, delay }) => (
+          {stars.map(({ key, top, left, delay }) => (
             <div
-              key={id}
+              key={key}
               className="star"
               style={{ top, left, animationDelay: delay }}
             />
           ))}
         </div>
 
-        {/* Original dust-particles (optional—keep or remove) */}
+        {/* Couture dust (optional) */}
         <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 pointer-events-none">
           {[...Array(36)].map((_, i) => (
             <div
@@ -70,12 +71,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           ))}
         </div>
 
-        {/* Main content: centered over the star field */}
-        <main
-          id="main-content"
-          role="main"
-          className="relative z-10 flex flex-col items-center justify-center h-full w-full px-4"
-        >
+        {/* Main content */}
+        <main className="relative z-10 flex flex-col items-center min-h-screen w-full px-8 py-16">
           {children}
         </main>
       </body>
