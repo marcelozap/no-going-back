@@ -3,181 +3,62 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/*─────────────────────────────────────────────────────────────────────────────
-  1. CSS Variables: centralized durations, colors, fonts
-─────────────────────────────────────────────────────────────────────────────*/
-:root {
-  /* Colors */
-  --color-bg: #000000;
-  --color-fg: #ffffff;
-  --color-highlight: #D4AF37;
-
-  /* Fonts */
-  --font-primary: 'Cinzel', serif;
-  --font-chat: 'Inter', sans-serif;
-
-  /* Animation durations */
-  --dur-fast: 0.5s;
-  --dur-med: 1s;
-  --dur-slow: 3s;
-
-  /* Opacity steps */
-  --twinkle-min: 0.2;
-  --twinkle-max: 0.6;
-}
-
-/*─────────────────────────────────────────────────────────────────────────────
-  2. Base Styles
-─────────────────────────────────────────────────────────────────────────────*/
+/* 1. Ensure full-screen & black */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: var(--color-bg);
-  color: var(--color-fg);
-  font-family: var(--font-primary);
+  background: #000;
+  color: #fff;
   overflow: hidden;
 }
 
-/*─────────────────────────────────────────────────────────────────────────────
-  3. Reduced-Motion Preference
-─────────────────────────────────────────────────────────────────────────────*/
-@media (prefers-reduced-motion: reduce) {
-  .animate-glow,
-  .animate-fade-in-up,
-  .animate-spin-slow,
-  .animate-twinkle,
-  .particle,
-  .star {
-    animation: none !important;
-  }
+/* 2. Star & dust animations (kept from before) */
+/* … include the same star, particle, keyframes you already have … */
+@keyframes starAnim {
+  0%,100% { opacity:0.5; transform: scale(0.8) translate(0,0); }
+  25%    { transform: scale(1) translate(2px,-1px); }
+  50%    { opacity:1; transform: scale(1.2) translate(0,0); }
+  75%    { transform: scale(1) translate(-2px,1px); }
+}
+.star {
+  position:absolute; width:2px; height:2px; border-radius:50%; background:#fff;
+  will-change:transform,opacity;
+  animation: starAnim 3s ease-in-out infinite;
 }
 
-/*─────────────────────────────────────────────────────────────────────────────
-  4. Animations (only transform & opacity)
-─────────────────────────────────────────────────────────────────────────────*/
-/* 4.1 Spin (for dust) */
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-.animate-spin-slow {
-  will-change: transform;
-  animation: spin var(--dur-slow) linear infinite;
-}
-
-/* 4.2 Twinkle (dust) */
-@keyframes twinkle {
-  0%,100% { opacity: var(--twinkle-min); }
-  50%     { opacity: var(--twinkle-max); }
-}
-.animate-twinkle {
-  will-change: opacity;
-  animation: twinkle var(--dur-slow) ease-in-out infinite;
-}
-
-/* 4.3 Glow (title) */
-@keyframes glow {
-  0%,100% {
-    text-shadow:
-      0 0 8px rgba(255,255,255,0.6),
-      0 0 16px rgba(255,255,255,0.4);
-  }
-  50% {
-    text-shadow:
-      0 0 20px rgba(255,255,255,1),
-      0 0 30px rgba(255,255,255,0.8);
-  }
-}
-.animate-glow-couture {
-  will-change: text-shadow, opacity;
-  animation: glow var(--dur-med) ease-in-out infinite alternate;
-}
-
-/* 4.4 Fade-in-up (panels, headlines) */
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in-up {
-  will-change: opacity, transform;
-  animation: fade-in-up var(--dur-med) ease-out forwards;
-  opacity: 0;
-}
-
-/* 4.5 Drift (couture dust particles) */
 @keyframes drift {
   0%   { transform: translateY(10vh) scale(0.5); opacity: 0; }
   50%  { opacity: 0.3; }
   100% { transform: translateY(-10vh) scale(1); opacity: 0; }
 }
 .particle {
-  position: absolute;
-  background: rgba(255,255,255,0.2);
-  width: 1px;
-  height: 20px;
-  will-change: transform, opacity;
+  position:absolute; background:rgba(255,255,255,0.2);
+  width:1px; height:20px;
   animation: drift 8s ease-in-out infinite;
 }
 
-/*─────────────────────────────────────────────────────────────────────────────
-  5. Pulsing & Oscillating Stars
-─────────────────────────────────────────────────────────────────────────────*/
-@keyframes starAnim {
-  0%,100% {
-    opacity: 0.5;
-    transform: scale(0.8) translate(0, 0);
-  }
-  25% {
-    transform: scale(1) translate(2px, -1px);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.2) translate(0, 0);
-  }
-  75% {
-    transform: scale(1) translate(-2px, 1px);
-  }
+/* 3. Glow & fade (for your headings) */
+@keyframes glow {
+  0%,100% { text-shadow: 0 0 8px rgba(255,255,255,0.6), 0 0 16px rgba(255,255,255,0.4); }
+  50%     { text-shadow: 0 0 20px rgba(255,255,255,1), 0 0 30px rgba(255,255,255,0.8); }
 }
-.star {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  border-radius: 50%;
-  background: #fff;
-  will-change: transform, opacity;
-  animation: starAnim var(--dur-slow) ease-in-out infinite;
+.animate-glow-couture {
+  animation: glow 1s ease-in-out infinite alternate;
+}
+@keyframes fade-in-up {
+  from { opacity:0; transform: translateY(24px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  opacity:0;
+  animation: fade-in-up 1s ease-out forwards;
 }
 
-/*─────────────────────────────────────────────────────────────────────────────
-  6. Scrollbar (Chat) – Firefox & WebKit
-─────────────────────────────────────────────────────────────────────────────*/
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.3) transparent;
-}
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.3);
-  border-radius: 3px;
-}
+/* 4. Scrollbar (chat) & utilities */
+.custom-scrollbar { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.3) transparent; }
+.custom-scrollbar::-webkit-scrollbar { width:6px; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius:3px; }
 
-/*─────────────────────────────────────────────────────────────────────────────
-  7. Utility Classes & Accessibility Helpers
-─────────────────────────────────────────────────────────────────────────────*/
-.sr-only {
-  position: absolute; width: 1px; height: 1px;
-  margin: -1px; padding: 0; overflow: hidden;
-  clip: rect(0,0,0,0); white-space: nowrap;
-}
-.focus\:not-sr-only:focus {
-  position: static; width: auto; height: auto;
-  margin: 0; overflow: visible; clip: auto;
-  white-space: normal;
-}
+.sr-only { position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+.focus\:not-sr-only:focus { position:static; width:auto; height:auto; margin:0; overflow:visible; clip:auto; white-space:normal; }

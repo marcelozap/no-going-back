@@ -4,7 +4,7 @@ import { Cinzel } from "next/font/google";
 import "./globals.css";
 
 const cinzel = Cinzel({
-  weight: ["400", "700", "900"],
+  weight: ["400","700","900"],
   subsets: ["latin"],
   variable: "--font-cinzel",
   display: "swap",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description: "AI mastering and mix companion from the void.",
     url: "https://gatekpt.ai",
     siteName: "GateKPT",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "GateKPT Logo" }],
+    images: [{ url: "/og-image.png", width:1200, height:630, alt:"GateKPT Logo" }],
     type: "website",
   },
   twitter: {
@@ -35,38 +35,42 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const stars = Array.from({ length: 80 }).map((_, i) => ({
     key: i,
-    top: `${Math.random() * 100}%`,
-    left: `${Math.random() * 100}%`,
-    delay: `${(Math.random() * 3).toFixed(2)}s`,
+    top:  `${Math.random()*100}%`,
+    left: `${Math.random()*100}%`,
+    delay: `${(Math.random()*3).toFixed(2)}s`,
   }));
 
   return (
-    <html lang="en" className="h-screen bg-black text-white">
-      <body className={`${cinzel.variable} antialiased h-full w-full overflow-hidden relative`}>
-        {/* Pulsing star field */}
+    <html lang="en" className="h-screen bg-black">
+      <body className={`${cinzel.variable} antialiased h-screen w-screen relative`}>
+        {/* Pulsing stars */}
         <div className="absolute inset-0 pointer-events-none">
-          {stars.map(({ key, top, left, delay }) => (
-            <div key={key} className="star" style={{ top, left, animationDelay: delay }} />
+          {stars.map(({key, top, left, delay}) => (
+            <div
+              key={key}
+              className="star"
+              style={{ top, left, animationDelay: delay }}
+            />
           ))}
         </div>
 
-        {/* Couture dust (optional) */}
+        {/* Dust particles */}
         <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 pointer-events-none">
-          {[...Array(36)].map((_, i) => (
+          {[...Array(36)].map((_,i) => (
             <div
               key={i}
               className="particle"
               style={{
-                gridColumnStart: ((i * 3) % 6) + 1,
-                gridRowStart: ((i * 5) % 6) + 1,
-                animationDelay: `${(i % 6) * 0.5}s`,
+                gridColumnStart: ((i*3)%6)+1,
+                gridRowStart:    ((i*5)%6)+1,
+                animationDelay: `${(i%6)*0.5}s`
               }}
             />
           ))}
         </div>
 
-        {/* Main content: centered */}
-        <main className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-8 py-16">
+        {/* Centered content */}
+        <main className="relative z-10 flex flex-col items-center justify-center h-full w-full px-4">
           {children}
         </main>
       </body>
