@@ -20,14 +20,7 @@ export const metadata: Metadata = {
     description: "AI mastering and mix companion from the void.",
     url: "https://gatekpt.ai",
     siteName: "GateKPT",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "GateKPT Logo on Cosmic Background",
-      },
-    ],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "GateKPT Logo on Cosmic Background" }],
     type: "website",
   },
   twitter: {
@@ -37,41 +30,17 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
     creator: "@yourhandle",
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
+  icons: { icon: "/favicon.ico" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="bg-black text-white">
       <body
-        className={`${cinzel.variable} antialiased overflow-x-hidden relative min-h-screen`}
+        className={`${cinzel.variable} antialiased overflow-hidden relative min-h-screen`}
       >
-        {/* 1) Fixed background video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="fixed inset-0 object-cover w-full h-full -z-20 pointer-events-none"
-        >
-          <source src="/spinning-earth.mp4" type="video/mp4" />
-        </video>
-
-        {/* 2) Fixed dark overlay tint */}
-        <div className="fixed inset-0 bg-black/60 -z-10 pointer-events-none" />
-
-        {/* 3) Skip link (always on top) */}
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only fixed top-4 left-4 z-50 px-3 py-2 bg-white text-black rounded"
-        >
-          Skip to main content
-        </a>
-
-        {/* 4) Dust particles, also viewport-fixed */}
-        <div className="fixed inset-0 grid grid-cols-6 grid-rows-6 pointer-events-none">
+        {/* star-particles */}
+        <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 pointer-events-none">
           {[...Array(36)].map((_, i) => (
             <div
               key={i}
@@ -85,12 +54,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           ))}
         </div>
 
-        {/* 5) Main content wrapper */}
-        <main
-          id="main-content"
-          role="main"
-          className="relative z-10 min-h-screen"
-        >
+        {/* center everything */}
+        <main className="relative z-10 flex items-center justify-center min-h-screen px-4">
           {children}
         </main>
       </body>
