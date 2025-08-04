@@ -1,3 +1,4 @@
+// src/app/page.tsx
 'use client';
 
 import { useState } from 'react';
@@ -30,6 +31,7 @@ export default function Home() {
 
   return (
     <>
+      {/* Skip link for accessibility */}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only px-4 py-2 bg-white text-black fixed top-4 left-4 z-50"
@@ -41,21 +43,6 @@ export default function Home() {
         id="main-content"
         className="relative flex flex-col items-center justify-center min-h-screen w-full bg-black overflow-hidden px-8 py-16"
       >
-        {/* 1. Background video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 object-cover w-full h-full pointer-events-none"
-        >
-          <source src="/spinning-earth.mp4" type="video/mp4" />
-        </video>
-
-        {/* 2. Dark overlay */}
-        <div className="absolute inset-0 bg-black/60 pointer-events-none" />
-
-        {/* 3. Your existing “z-10” content sits here */}
         {/* Couture dust particles */}
         <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 pointer-events-none">
           {[...Array(36)].map((_, i) => (
@@ -72,9 +59,11 @@ export default function Home() {
         </div>
 
         {/* Hero */}
-        <h1 className="relative z-10 mb-4 text-[5rem] md:text-[6rem] font-[Cinzel] font-extrabold uppercase tracking-widest text-center text-white
-                       after:absolute after:inset-0 after:bg-gradient-to-r after:from-white after:via-[#D4AF37] after:to-white
-                       after:bg-clip-text after:text-transparent animate-glow-couture">
+        <h1
+          className="relative z-10 mb-4 text-[5rem] md:text-[6rem] font-[Cinzel] font-extrabold uppercase tracking-widest text-center text-white
+                     after:absolute after:inset-0 after:bg-gradient-to-r after:from-white after:via-[#D4AF37] after:to-white
+                     after:bg-clip-text after:text-transparent animate-glow-couture"
+        >
           GATEKPT
         </h1>
         <p className="relative z-10 mb-12 max-w-xl text-center text-gray-300 font-light animate-fade-in-up">

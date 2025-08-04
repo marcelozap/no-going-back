@@ -48,21 +48,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${cinzel.variable} antialiased overflow-x-hidden relative min-h-screen`}
       >
-        {/* Fullscreen background video */}
+        {/* 1) Fixed background video, locked to viewport */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 object-cover w-full h-full pointer-events-none"
+          className="fixed inset-0 w-full h-full object-cover -z-20 pointer-events-none"
         >
           <source src="/spinning-earth.mp4" type="video/mp4" />
         </video>
 
-        {/* Dark overlay tint */}
-        <div className="absolute inset-0 bg-black/60 pointer-events-none" />
+        {/* 2) Fixed dark overlay tint */}
+        <div className="fixed inset-0 bg-black/60 -z-10 pointer-events-none" />
 
-        {/* Skip link for accessibility */}
+        {/* 3) Skip link for accessibility */}
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only fixed top-4 left-4 z-50 px-3 py-2 bg-white text-black rounded"
@@ -70,8 +70,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to main content
         </a>
 
-        {/* Couture “dust” layer */}
-        <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 pointer-events-none">
+        {/* 4) Couture “dust” layer, also viewport-fixed */}
+        <div className="fixed inset-0 grid grid-cols-6 grid-rows-6 pointer-events-none">
           {[...Array(36)].map((_, i) => (
             <div
               key={i}
@@ -85,7 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           ))}
         </div>
 
-        {/* Main content wrapper */}
+        {/* 5) Main content wrapper sits above everything */}
         <main id="main-content" role="main" className="relative z-10 min-h-screen">
           {children}
         </main>
