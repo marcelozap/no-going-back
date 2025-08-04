@@ -1,3 +1,4 @@
+/* styles/globals.css */
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -28,14 +29,14 @@
 /*─────────────────────────────────────────────────────────────────────────────
   2. Base Styles
 ─────────────────────────────────────────────────────────────────────────────*/
-body {
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
   background-color: var(--color-bg);
   color: var(--color-fg);
   font-family: var(--font-primary);
-  overflow-x: hidden;
-  overscroll-behavior: none;
+  overflow: hidden;
 }
 
 /*─────────────────────────────────────────────────────────────────────────────
@@ -46,7 +47,8 @@ body {
   .animate-fade-in-up,
   .animate-spin-slow,
   .animate-twinkle,
-  .particle {
+  .particle,
+  .star {
     animation: none !important;
   }
 }
@@ -54,7 +56,7 @@ body {
 /*─────────────────────────────────────────────────────────────────────────────
   4. Animations (only transform & opacity)
 ─────────────────────────────────────────────────────────────────────────────*/
-/* 4.1 Spin (for moon/earth imagery) */
+/* 4.1 Spin (for dust) */
 @keyframes spin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
@@ -64,7 +66,7 @@ body {
   animation: spin var(--dur-slow) linear infinite;
 }
 
-/* 4.2 Twinkle (star dots) */
+/* 4.2 Twinkle (dust) */
 @keyframes twinkle {
   0%,100% { opacity: var(--twinkle-min); }
   50%     { opacity: var(--twinkle-max); }
@@ -74,7 +76,7 @@ body {
   animation: twinkle var(--dur-slow) ease-in-out infinite;
 }
 
-/* 4.3 Glow (title & highlights) */
+/* 4.3 Glow (title) */
 @keyframes glow {
   0%,100% {
     text-shadow:
@@ -87,7 +89,7 @@ body {
       0 0 30px rgba(255,255,255,0.8);
   }
 }
-.animate-glow {
+.animate-glow-couture {
   will-change: text-shadow, opacity;
   animation: glow var(--dur-med) ease-in-out infinite alternate;
 }
@@ -119,40 +121,7 @@ body {
 }
 
 /*─────────────────────────────────────────────────────────────────────────────
-  5. Scrollbar (Chat) – Firefox & WebKit
-─────────────────────────────────────────────────────────────────────────────*/
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.3) transparent;
-}
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.3);
-  border-radius: 3px;
-}
-
-/*─────────────────────────────────────────────────────────────────────────────
-  6. Utility Classes & Accessibility Helpers
-─────────────────────────────────────────────────────────────────────────────*/
-/* Skip-link helpers */
-.sr-only {
-  position: absolute; width: 1px; height: 1px;
-  margin: -1px; padding: 0; overflow: hidden;
-  clip: rect(0,0,0,0); white-space: nowrap;
-}
-.focus\:not-sr-only:focus {
-  position: static; width: auto; height: auto;
-  margin: 0; overflow: visible; clip: auto;
-  white-space: normal;
-}
-/*─────────────────────────────────────────────────────────────────────────────
-  7. Pulsing & Oscillating Stars
+  5. Pulsing & Oscillating Stars
 ─────────────────────────────────────────────────────────────────────────────*/
 @keyframes starAnim {
   0%,100% {
@@ -178,4 +147,37 @@ body {
   background: #fff;
   will-change: transform, opacity;
   animation: starAnim var(--dur-slow) ease-in-out infinite;
+}
+
+/*─────────────────────────────────────────────────────────────────────────────
+  6. Scrollbar (Chat) – Firefox & WebKit
+─────────────────────────────────────────────────────────────────────────────*/
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 3px;
+}
+
+/*─────────────────────────────────────────────────────────────────────────────
+  7. Utility Classes & Accessibility Helpers
+─────────────────────────────────────────────────────────────────────────────*/
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap;
+}
+.focus\:not-sr-only:focus {
+  position: static; width: auto; height: auto;
+  margin: 0; overflow: visible; clip: auto;
+  white-space: normal;
 }

@@ -47,8 +47,8 @@ export default function Home() {
         GATEKPT
       </h1>
 
-      {/* Chat directly under hero, full width */}
-      <div className="w-full mb-12">
+      {/* Chat directly under hero */}
+      <div className="w-full max-w-2xl mb-12 mx-auto">
         <Chat />
       </div>
 

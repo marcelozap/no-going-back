@@ -1,5 +1,4 @@
 // src/app/layout.tsx
-
 import type { Metadata } from "next";
 import { Cinzel } from "next/font/google";
 import "./globals.css";
@@ -34,7 +33,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // generate 80 stars with random positions & delays
   const stars = Array.from({ length: 80 }).map((_, i) => ({
     key: i,
     top: `${Math.random() * 100}%`,
@@ -48,11 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Pulsing star field */}
         <div className="absolute inset-0 pointer-events-none">
           {stars.map(({ key, top, left, delay }) => (
-            <div
-              key={key}
-              className="star"
-              style={{ top, left, animationDelay: delay }}
-            />
+            <div key={key} className="star" style={{ top, left, animationDelay: delay }} />
           ))}
         </div>
 
@@ -71,8 +65,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           ))}
         </div>
 
-        {/* Main content */}
-        <main className="relative z-10 flex flex-col items-center min-h-screen w-full px-8 py-16">
+        {/* Main content: centered */}
+        <main className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-8 py-16">
           {children}
         </main>
       </body>
