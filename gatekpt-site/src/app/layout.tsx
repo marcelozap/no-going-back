@@ -45,7 +45,23 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="bg-black text-white">
-      <body className={`${cinzel.variable} antialiased overflow-x-hidden relative min-h-screen`}>
+      <body
+        className={`${cinzel.variable} antialiased overflow-x-hidden relative min-h-screen`}
+      >
+        {/* Fullscreen background video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 object-cover w-full h-full pointer-events-none"
+        >
+          <source src="/spinning-earth.mp4" type="video/mp4" />
+        </video>
+
+        {/* Dark overlay tint */}
+        <div className="absolute inset-0 bg-black/60 pointer-events-none" />
+
         {/* Skip link for accessibility */}
         <a
           href="#main-content"
@@ -69,12 +85,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           ))}
         </div>
 
-        {/* Main content area */}
-        <main
-          id="main-content"
-          role="main"
-          className="relative z-10 min-h-screen"
-        >
+        {/* Main content wrapper */}
+        <main id="main-content" role="main" className="relative z-10 min-h-screen">
           {children}
         </main>
       </body>
