@@ -1,3 +1,4 @@
+// src/app/components/chat.tsx
 'use client';
 
 import { useState, useRef, useEffect, KeyboardEvent } from 'react';
@@ -65,7 +66,7 @@ export default function Chat() {
     <section
       aria-label="Chat with GateKPT"
       aria-busy={loading}
-      className="relative w-full max-w-2xl bg-white/5 backdrop-blur-lg border border-white/20
+      className="relative w-full max-w-2xl mx-auto bg-white/5 backdrop-blur-lg border border-white/20
                  rounded-2xl p-6 shadow-2xl animate-fade-in-up font-chat sm:py-8 sm:px-8"
     >
       {/* Message log */}
@@ -95,7 +96,7 @@ export default function Chat() {
                     }`
               } ${msg.text === '' ? 'h-6 w-24 bg-white/20 rounded' : ''}`}
             >
-              {msg.text || /* skeleton shimmering */ (
+              {msg.text || (
                 <div className="h-4 w-full bg-white/20 animate-pulse rounded" />
               )}
             </div>

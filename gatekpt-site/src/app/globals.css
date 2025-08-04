@@ -151,3 +151,31 @@ body {
   margin: 0; overflow: visible; clip: auto;
   white-space: normal;
 }
+/*─────────────────────────────────────────────────────────────────────────────
+  7. Pulsing & Oscillating Stars
+─────────────────────────────────────────────────────────────────────────────*/
+@keyframes starAnim {
+  0%,100% {
+    opacity: 0.5;
+    transform: scale(0.8) translate(0, 0);
+  }
+  25% {
+    transform: scale(1) translate(2px, -1px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) translate(0, 0);
+  }
+  75% {
+    transform: scale(1) translate(-2px, 1px);
+  }
+}
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff;
+  will-change: transform, opacity;
+  animation: starAnim var(--dur-slow) ease-in-out infinite;
+}
