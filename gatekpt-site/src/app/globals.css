@@ -1,9 +1,10 @@
-/* styles/globals.css */
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
 
-/* 1. Ensure full-screen & black */
+/* src/app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 1. Full-screen black */
 html, body {
   height: 100%;
   margin: 0;
@@ -13,52 +14,54 @@ html, body {
   overflow: hidden;
 }
 
-/* 2. Star & dust animations (kept from before) */
-/* … include the same star, particle, keyframes you already have … */
+/* 2. Star animation */
 @keyframes starAnim {
-  0%,100% { opacity:0.5; transform: scale(0.8) translate(0,0); }
-  25%    { transform: scale(1) translate(2px,-1px); }
-  50%    { opacity:1; transform: scale(1.2) translate(0,0); }
-  75%    { transform: scale(1) translate(-2px,1px); }
+  0%,100% { opacity: 0.5; transform: scale(0.8) translate(0,0); }
+  25%      { transform: scale(1)   translate(2px,-1px); }
+  50%      { opacity: 1; transform: scale(1.2) translate(0,0); }
+  75%      { transform: scale(1)   translate(-2px,1px); }
 }
 .star {
-  position:absolute; width:2px; height:2px; border-radius:50%; background:#fff;
-  will-change:transform,opacity;
+  position: absolute;
+  width: 2px; height: 2px; border-radius: 50%;
+  background: #fff;
   animation: starAnim 3s ease-in-out infinite;
 }
 
+/* 3. Dust particles (optional) */
 @keyframes drift {
   0%   { transform: translateY(10vh) scale(0.5); opacity: 0; }
   50%  { opacity: 0.3; }
   100% { transform: translateY(-10vh) scale(1); opacity: 0; }
 }
 .particle {
-  position:absolute; background:rgba(255,255,255,0.2);
-  width:1px; height:20px;
+  position: absolute;
+  background: rgba(255,255,255,0.2);
+  width: 1px; height: 20px;
   animation: drift 8s ease-in-out infinite;
 }
 
-/* 3. Glow & fade (for your headings) */
+/* 4. Headline glow & fade-in-up */
 @keyframes glow {
-  0%,100% { text-shadow: 0 0 8px rgba(255,255,255,0.6), 0 0 16px rgba(255,255,255,0.4); }
-  50%     { text-shadow: 0 0 20px rgba(255,255,255,1), 0 0 30px rgba(255,255,255,0.8); }
+  0%,100% { text-shadow: 0 0 8px rgba(255,255,255,0.6),0 0 16px rgba(255,255,255,0.4); }
+  50%     { text-shadow: 0 0 20px rgba(255,255,255,1),0 0 30px rgba(255,255,255,0.8); }
 }
-.animate-glow-couture {
-  animation: glow 1s ease-in-out infinite alternate;
-}
+.animate-glow-couture { animation: glow 1s ease-in-out infinite alternate; }
+
 @keyframes fade-in-up {
-  from { opacity:0; transform: translateY(24px); }
-  to   { opacity:1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-in-up {
-  opacity:0;
+  opacity: 0;
   animation: fade-in-up 1s ease-out forwards;
 }
 
-/* 4. Scrollbar (chat) & utilities */
+/* 5. Chat scrollbar */
 .custom-scrollbar { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.3) transparent; }
-.custom-scrollbar::-webkit-scrollbar { width:6px; }
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
 .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius:3px; }
 
+/* 6. Accessibility helpers */
 .sr-only { position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
 .focus\:not-sr-only:focus { position:static; width:auto; height:auto; margin:0; overflow:visible; clip:auto; white-space:normal; }
