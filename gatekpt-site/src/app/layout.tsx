@@ -48,13 +48,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${cinzel.variable} antialiased overflow-x-hidden relative min-h-screen`}
       >
-        {/* 1) Fixed background video, locked to viewport */}
+        {/* 1) Fixed background video */}
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="fixed inset-0 w-full h-full object-cover -z-20 pointer-events-none"
+          className="fixed inset-0 object-cover w-full h-full -z-20 pointer-events-none"
         >
           <source src="/spinning-earth.mp4" type="video/mp4" />
         </video>
@@ -62,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* 2) Fixed dark overlay tint */}
         <div className="fixed inset-0 bg-black/60 -z-10 pointer-events-none" />
 
-        {/* 3) Skip link for accessibility */}
+        {/* 3) Skip link (always on top) */}
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only fixed top-4 left-4 z-50 px-3 py-2 bg-white text-black rounded"
@@ -70,7 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to main content
         </a>
 
-        {/* 4) Couture “dust” layer, also viewport-fixed */}
+        {/* 4) Dust particles, also viewport-fixed */}
         <div className="fixed inset-0 grid grid-cols-6 grid-rows-6 pointer-events-none">
           {[...Array(36)].map((_, i) => (
             <div
@@ -85,8 +85,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           ))}
         </div>
 
-        {/* 5) Main content wrapper sits above everything */}
-        <main id="main-content" role="main" className="relative z-10 min-h-screen">
+        {/* 5) Main content wrapper */}
+        <main
+          id="main-content"
+          role="main"
+          className="relative z-10 min-h-screen"
+        >
           {children}
         </main>
       </body>

@@ -41,7 +41,7 @@ export default function Home() {
 
       <main
         id="main-content"
-        className="relative flex flex-col items-center justify-center min-h-screen w-full bg-black overflow-hidden px-8 py-16"
+        className="relative flex flex-col items-center justify-center min-h-screen w-full overflow-hidden px-8 py-16"
       >
         {/* Couture dust particles */}
         <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 pointer-events-none">
