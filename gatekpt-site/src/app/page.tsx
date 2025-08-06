@@ -31,20 +31,24 @@ export default function Home() {
 
   return (
     <div className="w-screen h-screen bg-black flex items-center justify-center relative overflow-hidden">
-      {/* Overlay from client component */}
+      {/* Background overlay renders pulsing & notes behind main content */}
       <BackgroundOverlay />
-      <main id="main-content" className="relative z-20 flex flex-col items-center space-y-6 w-full max-w-2xl -mt-8">
-        {/* Title */}
-        <h1 className="text-[5rem] md:text-[6rem] font-[Cinzel] font-extrabold uppercase tracking-widest text-white animate-pulse-slow opacity-100 mb-4 z-20">
+
+      <main id="main-content" className="relative z-30 flex flex-col items-center space-y-6 w-full max-w-2xl -mt-12">
+        {/* Title pulsing */}
+        <h1 className="text-[5rem] md:text-[6rem] font-[Cinzel] font-extrabold uppercase tracking-widest text-white animate-pulse-slow opacity-100">
           GATEKPT
         </h1>
-        {/* Chat Box */}
+
+        {/* Chat component */}
         <Chat />
+
         {/* Tagline */}
         <p className="text-center text-gray-300 font-light animate-fade-in-up">
           Born from darkness, forged in sounds — your AI mastering companion.
         </p>
-        {/* Download Buttons */}
+
+        {/* Download buttons */}
         <div className="flex flex-col sm:flex-row gap-6 justify-center w-full">
           <Link href="/downloads/mac">
             <button className="px-6 py-2 bg-white text-black rounded-full uppercase font-semibold w-full sm:w-auto">
@@ -57,7 +61,8 @@ export default function Home() {
             </button>
           </Link>
         </div>
-        {/* Upload & Transcribe Form */}
+
+        {/* Upload & Transcribe */}
         <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full">
           <input
             id="audioFile"
