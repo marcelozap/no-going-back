@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import Chat from './components/chat';
 import Link from 'next/link';
