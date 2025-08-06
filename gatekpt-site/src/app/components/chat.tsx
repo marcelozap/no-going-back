@@ -1,5 +1,4 @@
 'use client';
-
 import { useState, FormEvent } from 'react';
 
 interface Message {
@@ -21,7 +20,7 @@ export default function Chat() {
   };
 
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-4 w-full">
       {messages.map((msg, idx) => (
         <div key={idx} className="text-white text-sm">
           <span className="font-semibold">
@@ -30,7 +29,7 @@ export default function Chat() {
           <span>{msg.content}</span>
         </div>
       ))}
-      <form onSubmit={handleSend} className="flex items-center space-x-2">
+      <form onSubmit={handleSend} className="flex items-center space-x-2 w-full">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
