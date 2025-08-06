@@ -1,12 +1,10 @@
-// src/app/page.tsx
-'use client';
-
 import { useState } from 'react';
 import Chat from './components/chat';
 import Link from 'next/link';
+import { Music2 } from 'lucide-react';
 
 export default function Home() {
-  const [result, setResult]   = useState('Upload a file to transcribe');
+  const [result, setResult] = useState('No file chosen');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -20,7 +18,7 @@ export default function Home() {
     setResult('Transcribing…');
 
     try {
-      const res  = await fetch('/api/transcribe', { method: 'POST', body: formData });
+      const res = await fetch('/api/transcribe', { method: 'POST', body: formData });
       const data = await res.json();
       setResult(data.transcription || data.error || 'Something went wrong.');
     } catch {
@@ -31,90 +29,46 @@ export default function Home() {
   };
 
   return (
-    <>
-      {/* Skip link */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only fixed top-4 left-4 z-50 px-3 py-2 bg-white text-black rounded"
-      >
-        Skip to main content
-      </a>
-
-      {/* Hero + Chat */}
-      <div className="flex flex-col items-center space-y-8" id="main-content">
-        <h1
-          className="text-[5rem] md:text-[6rem] font-[Cinzel] font-extrabold uppercase
-                     tracking-widest text-white animate-glow-couture"
-        >
-          GATEKPT
-        </h1>
-        <div className="w-full max-w-2xl">
+    <div className="w-screen h-screen bg-black relative flex items-center justify-center overflow-hidden">
+      {/* Background and overlays inherited from layout */}
+      <main id="main-content" className="relative z-10 flex flex-col items-center space-y-8">
+        <div className="w-full max-w-2xl bg-transparent">
           <Chat />
         </div>
-      </div>
-
-      {/* Tagline */}
-      <p className="mt-12 mb-8 max-w-xl text-center text-gray-300 font-light animate-fade-in-up">
-        Born from darkness, forged in sound — your AI mastering companion in couture-cosmic style.
-      </p>
-
-      {/* Download Buttons */}
-      <div className="flex flex-col sm:flex-row gap-8 w-full justify-center mb-12">
-        <Link href="/downloads/mac">
+        <p className="text-center text-gray-300 font-light animate-fade-in-up">
+          Born from darkness, forged in sounds — your AI mastering companion.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-6 justify-center">
+          <Link href="/downloads/mac">
+            <button className="px-6 py-2 bg-white text-black rounded-full uppercase font-semibold">
+              Download for Logic
+            </button>
+          </Link>
+          <Link href="/downloads/windows">
+            <button className="px-6 py-2 bg-white text-black rounded-full uppercase font-semibold">
+              Windows Version
+            </button>
+          </Link>
+        </div>
+        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
+          <input
+            id="audioFile"
+            type="file"
+            name="audioFile"
+            accept="audio/*"
+            onChange={(e) => setResult(e.target.files?.[0]?.name || 'No file chosen')}
+            className="file:bg-white file:text-black file:px-4 file:py-2 file:rounded-lg file:cursor-pointer bg-transparent text-white border border-white/40 rounded-lg"
+          />
           <button
-            className="px-8 py-3 rounded-full bg-white text-black font-semibold uppercase
-                       shadow-[0_0_15px_rgba(212,175,55,0.7)] hover:shadow-[0_0_30px_rgba(212,175,55,1)]
-                       transition"
+            type="submit"
+            disabled={loading}
+            className="px-6 py-2 bg-white text-black rounded-full uppercase font-semibold disabled:opacity-50"
           >
-            Download for Logic (Mac)
+            {loading ? 'Transcribing…' : 'Upload & Transcribe'}
           </button>
-        </Link>
-        <Link href="/downloads/windows">
-          <button
-            className="px-8 py-3 rounded-full border border-white text-white font-semibold uppercase
-                       hover:bg-white hover:text-black hover:shadow-[0_0_30px_rgba(212,175,55,1)]
-                       transition"
-          >
-            Windows Version (Soon)
-          </button>
-        </Link>
-      </div>
-
-      {/* Upload Form */}
-      <form
-        id="transcribe-form"
-        onSubmit={handleSubmit}
-        className="flex flex-col items-center gap-4 w-full max-w-md mb-16"
-      >
-        <label htmlFor="audioFile" className="sr-only">
-          Upload audio file
-        </label>
-        <input
-          id="audioFile"
-          type="file"
-          name="audioFile"
-          accept="audio/*"
-          required
-          className="w-full bg-black/30 text-white file:bg-white file:text-black file:px-4 file:py-2
-                     file:rounded-lg file:cursor-pointer border border-white/20 rounded-lg
-                     focus:outline-none focus:ring-2 focus:ring-white/50 transition"
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="px-6 py-3 rounded-full bg-white text-black font-semibold uppercase transition disabled:opacity-50"
-        >
-          {loading ? 'Transcribing…' : 'Transcribe Audio'}
-        </button>
-        <pre className="w-full text-left text-gray-300 text-sm whitespace-pre-wrap mt-2 select-text">
-          {result}
-        </pre>
-      </form>
-
-      {/* Footer */}
-      <footer className="text-center text-gray-500 text-sm">
-        © {new Date().getFullYear()} GateKPT.ai • Built by Marcelo
-      </footer>
-    </>
+          <p className="text-white text-sm mt-2">{result}</p>
+        </form>
+      </main>
+    </div>
   );
 }
