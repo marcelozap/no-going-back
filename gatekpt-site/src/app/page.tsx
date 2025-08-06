@@ -33,9 +33,9 @@ export default function Home() {
     <div className="w-screen h-screen bg-black flex items-center justify-center relative overflow-hidden">
       {/* Overlay from client component */}
       <BackgroundOverlay />
-      <main id="main-content" className="relative z-20 flex flex-col items-center space-y-8 w-full max-w-2xl">
+      <main id="main-content" className="relative z-20 flex flex-col items-center space-y-6 w-full max-w-2xl -mt-8">
         {/* Title */}
-        <h1 className="text-[5rem] md:text-[6rem] font-[Cinzel] font-extrabold uppercase tracking-widest text-white animate-pulse-slow opacity-100">
+        <h1 className="text-[5rem] md:text-[6rem] font-[Cinzel] font-extrabold uppercase tracking-widest text-white animate-pulse-slow opacity-100 mb-4 z-20">
           GATEKPT
         </h1>
         {/* Chat Box */}
@@ -65,7 +65,7 @@ export default function Home() {
             name="audioFile"
             accept="audio/*"
             onChange={(e) => setResult(e.target.files?.[0]?.name || 'No file chosen')}
-            className="file:bg-white file:text-black file:px-4 file:py-2 file:rounded-lg file:cursor-pointer bg-transparent text-white border border-white/40 rounded-lg w-full"
+            className="file:bg-white file:text-black file:px-4 file:py-2 file:rounded-lg file:cursor-pointer bg-transparent text-white border border-white/40 rounded-lg w-full max-w-xs mx-auto"
           />
           <button
             type="submit"
