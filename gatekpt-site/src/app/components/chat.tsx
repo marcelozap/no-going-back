@@ -13,19 +13,16 @@ export default function Chat() {
   const handleSend = async (e: FormEvent) => {
     e.preventDefault();
     if (!input) return;
-    const userMsg = { role: 'user' as const, content: input };
-    setMessages((msgs) => [...msgs, userMsg]);
+    setMessages((msgs) => [...msgs, { role: 'user', content: input }]);
     setInput('');
-    // TODO: call API and append assistant response
+    // TODO: fetch assistant reply and append to messages
   };
 
   return (
     <div className="flex flex-col space-y-4 w-full">
       {messages.map((msg, idx) => (
         <div key={idx} className="text-white text-sm">
-          <span className="font-semibold">
-            {msg.role === 'user' ? 'You:' : 'GateKPT:'}{' '}
-          </span>
+          <span className="font-semibold">{msg.role === 'user' ? 'You:' : 'GateKPT:'} </span>
           <span>{msg.content}</span>
         </div>
       ))}
@@ -38,8 +35,8 @@ export default function Chat() {
         />
         <button
           type="submit"
-          className="px-4 py-2 bg-white text-black rounded-full uppercase font-semibold disabled:opacity-50"
           disabled={!input}
+          className="px-4 py-2 bg-white text-black rounded-full uppercase font-semibold disabled:opacity-50"
         >
           Send
         </button>

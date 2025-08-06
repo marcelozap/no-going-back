@@ -31,12 +31,12 @@ export default function Home() {
 
   return (
     <div className="w-screen h-screen bg-black flex items-center justify-center relative overflow-hidden">
-      {/* Background overlay renders pulsing & notes behind main content */}
+      {/* Overlay handles background animations and notes */}
       <BackgroundOverlay />
 
       <main id="main-content" className="relative z-30 flex flex-col items-center space-y-6 w-full max-w-2xl -mt-12">
         {/* Title pulsing */}
-        <h1 className="text-[5rem] md:text-[6rem] font-[Cinzel] font-extrabold uppercase tracking-widest text-white animate-pulse-slow opacity-100">
+        <h1 className="text-[5rem] md:text-[6rem] font-[Cinzel] font-extrabold uppercase tracking-widest text-white animate-pulse-slow opacity-100 mb-4 z-20">
           GATEKPT
         </h1>
 
@@ -62,7 +62,7 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Upload & Transcribe */}
+        {/* Upload & Transcribe Form */}
         <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full">
           <input
             id="audioFile"
